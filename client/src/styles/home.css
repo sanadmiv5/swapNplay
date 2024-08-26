@@ -1,0 +1,35 @@
+.categories_navlinks {
+  list-style-type: none;
+  display: flex;
+  align-items: center;
+}
+.categories_navlinks .navlink {
+  margin: 1rem 1rem 0rem;
+  cursor: pointer;
+}
+
+.AdCard {
+  margin: 3rem 0rem;
+}
+
+.hero-container{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.left-section{
+  display: grid;
+  place-content: center;
+}
+.hero-heading{
+  font-size: 36px;
+  font-weight: bold;
+  color: yellow;
+}
+.right-section{
+  display: grid;
+  place-content: center;
+}
+.hero-img{
+  width: 400px;
+  height: 400px;
+}
