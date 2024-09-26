@@ -1,32 +1,26 @@
-import React from 'react'
+import React from 'react';
+import { FaTag, FaMoneyBillWave, FaInfoCircle } from 'react-icons/fa';
 
 const ItemDetails = ({ ad }) => {
   return (
     <div className="details_container">
       <h4 className="title">Details</h4>
       <div className="items">
-        {/* <div className="item">
-          <p className="attribute">Description</p>
-          <p className="value">{ad.description}</p>
-        </div> */}
         <div className="item">
+          <FaMoneyBillWave className="icon" />
           <p className="attribute">Price</p>
-          <p className="value">{ad.price}</p>
+          <p className="value">Rs {ad.price}</p>
         </div>
-        {/* <div className="item">
-          <p className="attribute">Condition</p>
-          <p className="value">{ad.condition}</p>
-        </div> */}
       </div>
 
       <hr />
 
-      <div className="description_contianer">
-        <h4 className="title">Description</h4>
+      <div className="description_container">
+        <h4 className="title"><FaInfoCircle className="icon" /> Description</h4>
         <p className="description">{ad.description}</p>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default ItemDetails
+export default ItemDetails;

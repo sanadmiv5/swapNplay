@@ -56,8 +56,8 @@ export const InnerCard = ({ ad, userItems }) => {
 
   return (
     <>
-      <Col md={3} key={ad._id} onClick={() => handleClick(ad._id)}>
-        <Card style={{ width: '100%', cursor: 'pointer', position: 'relative' }}>
+      <Col md={4} key={ad._id} onClick={() => handleClick(ad._id)}>
+        <Card style={{ width: '300px', cursor: 'pointer', position: 'relative' }}>
           {ad.isGiveAway && (
             <Badge
               bg="danger"

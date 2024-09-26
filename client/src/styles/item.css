@@ -1,25 +1,72 @@
+/* Global container styling */
+.item_container {
+  background-color: #f9f9f9;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
 .details_container {
-  padding: 10px;
-  border-radius: 4px;
+  padding: 20px;
+  border-radius: 10px;
   border: 1px solid rgba(0, 47, 52, 0.36);
-  margin: 16px 0px 0px;
+  margin-top: 20px;
+  background-color: #fff;
 }
 
 .details_container .title {
-  color: #002f34;
+  color: #007bff;
+  font-size: 1.4rem;
+  display: flex;
+  align-items: center;
 }
+
 .details_container .items {
   display: flex;
   flex-wrap: wrap;
+  gap: 20px;
 }
+
 .details_container .items .item {
   display: flex;
-  flex-basis: 50%;
+  align-items: center;
+  gap: 10px;
 }
-.details_container .items .item .attribute {
-  opacity: 0.6;
-  flex-basis: 50%;
+
+.details_container .items .attribute {
+  opacity: 0.8;
+  font-weight: 600;
 }
-.details_container .items .item .value {
-  flex-basis: 50%;
+
+.details_container .items .value {
+  font-weight: bold;
+}
+
+.description_container {
+  margin-top: 16px;
+}
+
+.description_container p {
+  margin: 10px 0;
+  line-height: 1.6;
+}
+
+.custom-carousel img {
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Icon styling */
+.icon {
+  margin-right: 8px;
+  color: #007bff;
+}
+
+/* Chat box */
+.chat_container {
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }

@@ -14,7 +14,7 @@ const MyAd = ({ ad }) => {
 
   const { title, imageUrl, price, _id, createdAt, isGiveAway, giveawayRequests } = ad;
 
-  const maxLength = 30;
+  const maxLength = 60;  // Allow for a longer title
   let trimmedString = title?.substr(0, maxLength);
   trimmedString = trimmedString?.substr(0, Math.min(trimmedString?.length, trimmedString?.lastIndexOf(' ')));
 
@@ -50,32 +50,24 @@ const MyAd = ({ ad }) => {
     setDialogOpen(true);
   };
 
-  const handleRequestEdit = (requestId) => {
-    // Implement the edit functionality here
-    console.log(`Editing request with ID: ${requestId}`);
-  };
-
-  const handleRequestDelete = (requestId) => {
-    // Implement the delete functionality here
-    console.log(`Deleting request with ID: ${requestId}`);
-  };
-
   const handleSelectWinner = () => {
     dispatch(selectWinner(_id));
   };
 
   return (
-    <Card style={{ cursor: 'pointer' }}>
+    <Card className="my-ad-card" style={{ cursor: 'pointer', marginBottom: '2rem', padding: '1.5rem', width: '100%', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' }}>
       <div
         style={{
-          padding: '2rem 1rem',
+          padding: '1.5rem',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
+          borderBottom: '1px solid #ddd',
+          width: '100%',  // Ensure full width
         }}
       >
-        <span style={{ fontSize: '14px' }}>
-          From <span style={{ fontWeight: 'bold' }}>{date}</span>
+        <span style={{ fontSize: '14px', color: '#888' }}>
+          Posted on <span style={{ fontWeight: 'bold', color: '#333' }}>{date}</span>
         </span>
 
         <div
@@ -83,24 +75,25 @@ const MyAd = ({ ad }) => {
             display: 'flex',
             alignItems: 'center',
             flex: '1',
-            marginLeft: '3.5rem',
+            marginLeft: '2rem',
           }}
         >
           <img
             src={`${imageUrl}`}
             alt="profile"
-            width={50}
-            height={50}
+            style={{ width: '100px', height: '100px', objectFit: 'cover', borderRadius: '8px' }}
           />
           <p
             style={{
               marginBottom: '0px',
-              fontSize: '16px',
+              fontSize: '18px',
               fontWeight: 'bold',
-              marginLeft: '8px',
+              marginLeft: '12px',
+              width: '70%',
+              color: '#333',
             }}
           >
-            {title?.length > 30 ? `${trimmedString}...` : title}
+            {title?.length > 60 ? `${trimmedString}...` : title}
           </p>
         </div>
 
@@ -112,15 +105,15 @@ const MyAd = ({ ad }) => {
             alignItems: 'center',
           }}
         >
-          <span style={{ fontSize: '14px' }}>Rs {price}</span>
+          <span style={{ fontSize: '16px', fontWeight: 'bold', color: '#333' }}>Rs {price}</span>
           
           {isGiveAway ? (
             <span
               style={{
                 background: '#FF6347',
                 color: '#FFFFFF',
-                padding: '4px 1rem',
-                borderRadius: '1rem',
+                padding: '6px 1.5rem',
+                borderRadius: '1.5rem',
                 fontWeight: 'bold',
               }}
             >
@@ -131,17 +124,16 @@ const MyAd = ({ ad }) => {
               style={{
                 background: '#23e5db',
                 color: '#002f34',
-                padding: '4px 2rem',
-                borderRadius: '1rem',
+                padding: '6px 2.5rem',
+                borderRadius: '1.5rem',
+                fontWeight: 'bold',
               }}
             >
               Active
             </span>
           )}
 
-          <span style={{ fontSize: '14px' }}>This ad is currently live</span>
-
-          <IconButton onClick={handleClick}>
+          <IconButton onClick={handleClick} style={{ marginLeft: '1.5rem' }}>
             <BsThreeDots />
           </IconButton>
         </div>

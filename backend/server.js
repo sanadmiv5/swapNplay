@@ -8,6 +8,7 @@ const errorHandler = require('./middleware/errorMiddleware');
 const bodyParser = require('body-parser');
 const csrf = require('csurf');
 const dotenv = require('dotenv');
+const cors = require('cors'); // Import cors package
 
 dotenv.config();
 
@@ -18,6 +19,16 @@ connectDB();
 const User = require('./models/user');
 
 const app = express();
+
+// CORS configuration
+const corsOptions = {
+  origin: '*', // Allow all origins, or specify the allowed origins as needed
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed methods
+  allowedHeaders: ['Content-Type', 'Authorization'], // Allowed headers
+};
+
+// Use cors middleware
+app.use(cors(corsOptions));
 
 // Body parser
 app.use(bodyParser.json());
@@ -36,15 +47,12 @@ store.on('error', (error) => {
   console.log('Session store error:', error);
 });
 
-// Set up CSRF protection
-// const csrfProtection = csrf();
-
 // Dev logging middleware
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
 
-//Use session middleware
+// Use session middleware
 app.use(
   session({
     secret: 'my secret',
@@ -53,9 +61,6 @@ app.use(
     store: store, // With this, the session data will be stored in MongoDB
   })
 );
-
-// Use CSRF protection middleware
-// app.use(csrfProtection);
 
 // Middleware to populate req.user
 app.use((req, res, next) => {
@@ -86,7 +91,6 @@ app.use(errorHandler);
 
 // Serve static files
 app.use(express.static(path.join(__dirname, 'utils'))); // Ensure 'utils' folder is accessible
-
 
 const PORT = process.env.PORT || 5000;
 

@@ -9,6 +9,10 @@ router.get('/all-products', shopController.getAllProducts);
 
 router.get('/product/:id', shopController.getProduct);
 
+router.post('/rate', protect, shopController.rateSeller);
+
+router.get('/users/:id', protect, shopController.getSellerData);
+
 router.get('/user-products', protect, shopController.getUserProducts);
 
 router.put('/edit-product/:id', protect, shopController.editProduct);

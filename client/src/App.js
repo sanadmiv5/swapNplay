@@ -17,6 +17,8 @@ import Ad from './pages/Item'
 import MyAds from './pages/MyAds'
 import SwapRequests from './pages/SwapRequests'
 import UpdateAd from './pages/UpdateAd'
+import ChatList from './pages/ChatList'
+import SingleChat from './components/SingleChat'
 
 function App() {
   return (
@@ -98,6 +100,8 @@ function App() {
             }
           />
           <Route path="/item/:id" element={<Ad />} />
+          <Route path="/chatList" element={<ChatList />} />
+          <Route path="/chat/:chatId" element={<SingleChat />} /> {/* Chat route with chatId */}
         </Routes>
         <Footer />
       </Router>

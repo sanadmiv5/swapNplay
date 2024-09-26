@@ -1,5 +1,6 @@
 const Product = require('../models/product');
 const swapRequest = require('../models/swapRequest');
+const User = require('../models/user');
 
 exports.getAllProducts = async (req, res) => {
     try {
@@ -403,5 +404,91 @@ exports.deleteProduct = async (req, res) => {
             success: false,
             message: 'Server Error'
         });
+    }
+};
+
+exports.rateSeller = async (req, res) => {
+    try {
+      const { sellerId, rating } = req.body;
+  
+      // Find the seller
+      const seller = await User.findById(sellerId);
+      if (!seller) {
+        return res.status(404).json({ success: false, error: 'Seller not found' });
+      }
+  
+      // Check if the user already rated the seller
+      const existingRating = seller.ratings.find(
+        (rate) => rate.userId.toString() === req.user.id
+      );
+  
+      if (existingRating) {
+        // Update the existing rating
+        existingRating.rating = rating;
+      } else {
+        // Add new rating
+        seller.ratings.push({ userId: req.user.id, rating });
+      }
+  
+      // Calculate the average rating
+      const totalRatings = seller.ratings.length;
+  
+      let sumRatings = 0;
+      if (totalRatings > 0) {
+        sumRatings = seller.ratings.reduce((acc, curr) => acc + curr.rating, 0);
+      }
+  
+      const averageRating = totalRatings > 0 ? (sumRatings / totalRatings).toFixed(1) : 0;
+  
+      // Save the updated seller
+      await seller.save();
+  
+      res.status(200).json({ 
+        success: true, 
+        data: seller,
+        averageRating: parseFloat(averageRating), // Return the calculated average rating
+      });
+    } catch (error) {
+      res.status(500).json({ success: false, message: 'Server Error' });
+    }
+  };
+
+  exports.getSellerData = async (req, res) => {
+    try {
+        const sellerId = req.params.id;
+        const userId = req.user.id; // assuming this is coming from middleware after token validation
+
+        // Find the seller by ID
+        const seller = await User.findById(sellerId);
+        if (!seller) {
+            return res.status(404).json({ success: false, message: 'Seller not found' });
+        }
+
+        // Calculate the average rating
+        let averageRating = 0;
+        if (seller.ratings.length > 0) {
+            const totalRatings = seller.ratings.length;
+            const sumRatings = seller.ratings.reduce((acc, curr) => acc + curr.rating, 0);
+            averageRating = (sumRatings / totalRatings).toFixed(1); // 1 decimal place
+        }
+
+        // Check if the current user has rated the seller
+        const userRating = seller.ratings.find((rate) => rate.userId.toString() === userId);
+
+        res.status(200).json({
+            success: true,
+            data: {
+                seller: {
+                    name: seller.name,
+                    email: seller.email,
+                    memberSince: seller.createdAt,
+                    averageRating: parseFloat(averageRating),
+                },
+                currentUserRating: userRating ? userRating.rating : null, // User's rating or null if not rated
+            },
+        });
+    } catch (error) {
+        console.error('Error fetching seller data', error);
+        res.status(500).json({ success: false, message: 'Server Error' });
     }
 };

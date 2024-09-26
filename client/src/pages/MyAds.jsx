@@ -1,33 +1,33 @@
-import React, { useEffect } from 'react'
-import { Container } from 'react-bootstrap'
-import { useDispatch, useSelector } from 'react-redux'
-import MyAd from '../components/MyAd'
-import { myads, reset } from '../redux/ads/adsSlice'
+import React, { useEffect } from 'react';
+import { Container } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
+import MyAd from '../components/MyAd';
+import { myads, reset } from '../redux/ads/adsSlice';
 
 const MyAds = () => {
-  const dispatch = useDispatch()
-  const { ads } = useSelector((select) => select.ads)
-console.log("this is my ads",ads)
-  useEffect(() => {
-    dispatch(myads())
-  }, [dispatch])
+  const dispatch = useDispatch();
+  const { ads } = useSelector((select) => select.ads);
 
   useEffect(() => {
-    return () => dispatch(reset())
-  }, [dispatch])
+    dispatch(myads());
+  }, [dispatch]);
+
+  useEffect(() => {
+    return () => dispatch(reset());
+  }, [dispatch]);
 
   return (
     <Container>
       <h1 className="mt-5 mb-3">Your Ads</h1>
       {ads?.data?.length > 0 ? (
-        ads?.data?.map((ad) => <MyAd ad={ad} />)
+        ads?.data?.map((ad) => <MyAd key={ad._id} ad={ad} />)
       ) : (
         <div style={{ height: '35vh' }}>
           <h1>Your AD bucket is empty</h1>
         </div>
       )}
     </Container>
-  )
-}
+  );
+};
 
-export default MyAds
+export default MyAds;

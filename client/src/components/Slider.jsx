@@ -1,27 +1,22 @@
-import React from 'react'
-import { Carousel } from 'react-bootstrap'
+import React from 'react';
+import { Carousel } from 'react-bootstrap';
 
 const Slider = ({ images }) => {
   return (
-    <>
-      <Carousel style={{ background: '#000' }} indicators={false}>
-        {images.map((img) => {
-          return (
-            <Carousel.Item>
-              <img
-                className="d-block w-100"
-                src={`${img}`}
-                alt="First slide"
-                width={500}
-                height={500}
-                style={{ objectFit: 'contain' }}
-              />
-            </Carousel.Item>
-          )
-        })}
-      </Carousel>
-    </>
-  )
-}
+    <Carousel className="custom-carousel" indicators={false}>
+      {images.map((img, index) => (
+        <Carousel.Item key={index}>
+          <img
+            className="d-block w-100"
+            src={img}
+            alt={`Slide ${index + 1}`}
+            style={{ objectFit: 'contain' }}
+          />
+        </Carousel.Item>
+      ))}
+    </Carousel>
+  );
+};
 
-export default Slider
+export default Slider;
+

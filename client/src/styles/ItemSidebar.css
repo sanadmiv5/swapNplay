@@ -1,0 +1,100 @@
+.item-sidebar-container {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+    width: 100%;
+  }
+  
+  .details-container {
+    margin-bottom: 20px;
+  }
+  
+  .item-price {
+    font-size: 1.8rem;
+    color: #333;
+    font-weight: bold;
+  }
+  
+  .item-description {
+    opacity: 0.7;
+    margin-top: 10px;
+    font-size: 1rem;
+    color: #555;
+  }
+  
+  .item-location {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+    color: #888;
+    font-size: 0.9rem;
+  }
+  
+  .seller-container {
+    padding-top: 15px;
+    border-top: 1px solid #ddd;
+  }
+  
+  .section-title {
+    font-size: 1.4rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+  }
+  
+  .seller-profile {
+    display: flex;
+    align-items: center;
+  }
+  
+  .seller-image {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+  }
+  
+  .seller-info {
+    display: flex;
+    flex-direction: column;
+    margin-left: 15px;
+  }
+  
+  .seller-name {
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: #333;
+  }
+  
+  .member-since {
+    color: #777;
+    font-size: 0.9rem;
+  }
+  
+  .seller-email {
+    margin-top: 10px;
+    color: #444;
+    font-size: 1rem;
+  }
+  
+  .rating-section {
+    margin-top: 20px;
+  }
+  
+  .rating-message {
+    color: green;
+    margin-top: 10px;
+    font-size: 0.9rem;
+  }
+  
+  .user-rating {
+    margin-top: 10px;
+    font-size: 1rem;
+  }
+  
+  .ad-id {
+    font-weight: bold;
+    margin-top: 15px;
+    font-size: 0.9rem;
+    color: #666;
+  }
+  
