@@ -8,13 +8,11 @@ import { reset, updateAd } from '../redux/ads/adsSlice'
 import toast from 'react-hot-toast'
 import { ThreeDots } from 'react-loader-spinner'
 import GooglePlacesAutocomplete from 'react-google-places-autocomplete'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 const UpdateAd = () => {
   const [value, setValue] = useState(null)
- 
-
-
+  const navigate = useNavigate()
   const dispatch = useDispatch()
   const location = useLocation()
   const ad = location.state
@@ -94,6 +92,7 @@ const UpdateAd = () => {
       imageUrl: '',
       location: '',
     })
+    navigate("/")
   }
 
   if (isLoading) {

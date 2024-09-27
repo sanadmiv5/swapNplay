@@ -8,6 +8,7 @@ import { postAd } from '../redux/ads/adsSlice'
 import toast from 'react-hot-toast'
 import { ThreeDots } from 'react-loader-spinner'
 import GooglePlacesAutocomplete from 'react-google-places-autocomplete'
+import { useNavigate } from 'react-router-dom'
 
 const PostAd = () => {
   const [value, setValue] = useState(null)
@@ -22,6 +23,7 @@ const PostAd = () => {
   })
 
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const { errorMessage, successMessage, isError, isSuccess, isLoading } =
     useSelector((selector) => selector.ads)
 
@@ -82,6 +84,7 @@ const PostAd = () => {
       price: null,
       image: null,
     })
+    navigate("/")
   }
 
   if (isLoading) {

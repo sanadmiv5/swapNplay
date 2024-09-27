@@ -1,5 +1,5 @@
 import { IconButton, Menu, MenuItem, Button, Dialog, DialogActions, DialogContent, DialogTitle, List, ListItem, ListItemText } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Card } from 'react-bootstrap';
 import { BsThreeDots } from 'react-icons/bs';
@@ -11,6 +11,7 @@ const MyAd = ({ ad }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const selectedWinner = useSelector((state) => state.ads.selectedWinner);
+  const { isDeleted, isEdited } = useSelector((state) => state.ads);  // Select the status from Redux
 
   const { title, imageUrl, price, _id, createdAt, isGiveAway, giveawayRequests } = ad;
 
@@ -43,6 +44,7 @@ const MyAd = ({ ad }) => {
     const confirmGiveaway = window.confirm("Are you sure you want to give away this item?");
     if (confirmGiveaway) {
       dispatch(addGiveaway(_id));
+      navigate("/")
     }
   };
 
@@ -53,6 +55,20 @@ const MyAd = ({ ad }) => {
   const handleSelectWinner = () => {
     dispatch(selectWinner(_id));
   };
+
+  const handleDeleteAd = () => {
+    if (window.confirm('Are you sure you want to delete this ad?')) {
+      dispatch(deleteAd(_id));
+      navigate("/")
+    }
+  };
+
+  // Redirect to the home page after deletion or editing
+  useEffect(() => {
+    if (isDeleted || isEdited) {
+      navigate('/');  // Redirect to the home page
+    }
+  }, [isDeleted, isEdited, navigate]);  // Watch for changes in isDeleted or isEdited
 
   return (
     <Card className="my-ad-card" style={{ cursor: 'pointer', marginBottom: '2rem', padding: '1.5rem', width: '100%', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' }}>
@@ -161,7 +177,7 @@ const MyAd = ({ ad }) => {
           {!isGiveAway && (
             <MenuItem onClick={handleGiveaway}>Give Away</MenuItem>
           )}
-          <MenuItem onClick={() => dispatch(deleteAd(_id))}>Delete</MenuItem>
+          <MenuItem onClick={handleDeleteAd}>Delete</MenuItem>
           {isGiveAway && (
             <MenuItem onClick={handleGiveawayRequestList}>Giveaway Requests</MenuItem>
           )}
@@ -184,10 +200,10 @@ const MyAd = ({ ad }) => {
           </List>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleSelectWinner} color="primary">
+          <Button onClick={handleSelectWinner} color="primary" style={{color: "white"}}>
             Select Winner
           </Button>
-          <Button onClick={handleDialogClose} color="primary">
+          <Button onClick={handleDialogClose} color="primary" style={{color: "red"}}>
             Close
           </Button>
         </DialogActions>
